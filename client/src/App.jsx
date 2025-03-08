@@ -12,10 +12,11 @@ import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useAuthStore } from './store/useAuthStore';
 import { Loader } from 'lucide-react';
+import Footer from './components/Footer';
 
 function App() {
   const { isCheckingAuth, authUser, checkAuth, onlineUsers } = useAuthStore();
-  console.log(onlineUsers)
+  console.log(onlineUsers);
 
   useEffect(() => {
     checkAuth();
@@ -57,7 +58,9 @@ function App() {
           }}
         />
       </div>
-      <div></div>
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 }
