@@ -61,8 +61,8 @@ const ChatBubble = ({ message }) => {
               'min-w-fit sm:min-w-[120px]',
               'max-w-[90%] sm:max-w-[75%] md:max-w-md lg:max-w-lg', // Adaptive width
               isSender
-                ? 'bg-purple-500 text-white rounded-br-none'
-                : 'bg-blue-500 text-white rounded-bl-none'
+                ? 'bg-pink-500 text-white rounded-br-none'
+                : 'bg-purple-500 text-white rounded-bl-none'
             )}
           >
             <p className='text-sm leading-relaxed'>{message.text}</p>
