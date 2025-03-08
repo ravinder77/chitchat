@@ -10,6 +10,7 @@ export const useChatStore = create((set, get) => ({
   isTyping: false,
   isUsersLoading: false,
   isMessagesLoading: false,
+  currentUser: useAuthStore.getState().authUser,
 
   getUsers: async () => {
     set({ isUsersLoading: true });
