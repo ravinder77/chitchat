@@ -5,6 +5,7 @@ import MessageInput from './MessageInput';
 import MessageSkeleton from './MessageSkeleton';
 import ChatBubble from './ChatBubble';
 import { formatMessage } from '../utils/helpers';
+import { useAuthStore } from '../store/useAuthStore';
 
 const ChatContainer = () => {
   const {
@@ -16,6 +17,8 @@ const ChatContainer = () => {
     unsubscribeFromMessages,
   } = useChatStore();
 
+  const {authUser} = useAuthStore();
+
   const chatEndRef = React.useRef(null);
   const chatContainerRef = React.useRef(null);
 
@@ -23,7 +26,7 @@ const ChatContainer = () => {
   const prevMessagesLengthRef = React.useRef(messages.length);
 
   useEffect(() => {
-    if (!selectedUser?._id) return;
+    if (!selectedUser?._id || !authUser) return;
 
     getMessages(selectedUser._id);
     subscribeToMessages();
