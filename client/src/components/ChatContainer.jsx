@@ -67,7 +67,7 @@ const ChatContainer = () => {
     );
 
   return (
-    <div className='flex flex-1 flex-col w-full h-full max-h-screen'>
+    <div className='flex flex-1 flex-col w-full h-full max-h-screen pt-20 sm:pt-0'>
       <ChatHeader />
 
       <div
