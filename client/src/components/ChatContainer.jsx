@@ -6,8 +6,9 @@ import MessageSkeleton from './MessageSkeleton';
 import ChatBubble from './ChatBubble';
 import { formatMessage } from '../utils/helpers';
 import { useAuthStore } from '../store/useAuthStore';
+import { ArrowLeft } from 'lucide-react'; // Import ArrowLeft icon
 
-const ChatContainer = () => {
+const ChatContainer = ({ onBack }) => { // Add onBack prop for handling back navigation
   const {
     messages,
     getMessages,
@@ -17,7 +18,7 @@ const ChatContainer = () => {
     unsubscribeFromMessages,
   } = useChatStore();
 
-  const {authUser} = useAuthStore();
+  const { authUser } = useAuthStore();
 
   const chatEndRef = React.useRef(null);
   const chatContainerRef = React.useRef(null);
@@ -67,12 +68,13 @@ const ChatContainer = () => {
     );
 
   return (
-    <div className='flex flex-1 flex-col w-full h-full max-h-screen pt-20 sm:pt-0'>
-      <ChatHeader />
+    <div className='flex flex-1 flex-col w-full h-full max-h-[calc(100vh-64px)] sm:pt-0'>
+   
+      <ChatHeader onBack={onBack} />
 
       <div
         ref={chatContainerRef}
-        className='flex-1 overflow-y-auto p-4 space-y-4 min-h-0'
+        className='flex-1 overflow-y-auto px-3 py-4 sm:p-4 space-y-4 min-h-0 overscroll-contain'
       >
         {messages.map((message, index) => {
           const showTimestamp =

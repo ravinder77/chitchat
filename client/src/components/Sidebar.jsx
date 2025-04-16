@@ -23,8 +23,8 @@ const Sidebar = () => {
     : users;
 
   return (
-    <aside className='h-full w-full md:w-20 lg:w-72 border-r border-amber-300 flex flex-col pt-20 sm:pt-0'>
-      <div className='sticky top-0 bg-amber-100 border-b border-amber-300 w-full p-4'>
+    <aside className='h-full w-full md:w-20 lg:w-72 border-r border-[] flex flex-col sm:pt-0'>
+      <div className='sticky top-0 border-b border-[#] w-full p-4'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-2'>
             <Users className='size-6 text-gray-600' />
@@ -54,8 +54,8 @@ const Sidebar = () => {
             key={user._id}
             aria-label={`Select ${user.fullName}`}
             onClick={() => setSelectedUser(user)}
-            className={`w-full p-4 flex items-center gap-4 hover:bg-amber-200 transition-colors ${
-              selectedUser?._id === user._id ? 'bg-amber-200' : ''
+            className={`w-full p-4 flex items-center gap-4 hover:bg-[#eae2b7] hover:text-[#003049] transition-colors ${
+              selectedUser?._id === user._id ? 'bg-[#eae2b7] text-[#003049]' : ''
             }`}
           >
             <div className='relative flex-shrink-0'>
@@ -71,7 +71,7 @@ const Sidebar = () => {
 
             <div className='block md:hidden lg:block text-left flex-1 min-w-0'>
               <div className='font-medium truncate'>{user.fullName}</div>
-              <div className='text-sm text-zinc-400'>
+              <div className='text-sm text-zinc-500'>
                 {onlineUsers.includes(user._id) ? 'Online' : 'Offline'}
               </div>
             </div>
