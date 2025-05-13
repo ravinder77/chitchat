@@ -6,9 +6,8 @@ import MessageSkeleton from './MessageSkeleton';
 import ChatBubble from './ChatBubble';
 import { formatMessage } from '../utils/helpers';
 import { useAuthStore } from '../store/useAuthStore';
-import { ArrowLeft } from 'lucide-react'; // Import ArrowLeft icon
 
-const ChatContainer = ({ onBack }) => { // Add onBack prop for handling back navigation
+const ChatContainer = ({ onBack }) => {
   const {
     messages,
     getMessages,
@@ -19,12 +18,10 @@ const ChatContainer = ({ onBack }) => { // Add onBack prop for handling back nav
   } = useChatStore();
 
   const { authUser } = useAuthStore();
-
-  const chatEndRef = React.useRef(null);
-  const chatContainerRef = React.useRef(null);
-
+  const chatEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
   const initialLoadRef = useRef(true);
-  const prevMessagesLengthRef = React.useRef(messages.length);
+  const prevMessagesLengthRef = useRef(messages.length);
 
   useEffect(() => {
     if (!selectedUser?._id || !authUser) return;
@@ -33,7 +30,14 @@ const ChatContainer = ({ onBack }) => { // Add onBack prop for handling back nav
     subscribeToMessages();
 
     return () => unsubscribeFromMessages();
-  }, [selectedUser?._id, getMessages]);
+    // Add subscribeToMessages and unsubscribeFromMessages to dependencies for safety
+  }, [
+    selectedUser?._id,
+    getMessages,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+    authUser,
+  ]);
 
   useEffect(() => {
     initialLoadRef.current = true;
@@ -44,12 +48,10 @@ const ChatContainer = ({ onBack }) => { // Add onBack prop for handling back nav
     if (!chatContainerRef.current) return;
 
     if (initialLoadRef.current) {
-      // Immediate jump to bottom for initial load
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
       initialLoadRef.current = false;
     } else if (messages.length > prevMessagesLengthRef.current) {
-      // Smooth scroll for new messages
       chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
 
@@ -58,8 +60,8 @@ const ChatContainer = ({ onBack }) => { // Add onBack prop for handling back nav
 
   if (isMessagesLoading)
     return (
-      <div className='flex flex-1 flex-col w-full h-full max-h-screen'>
-        <ChatHeader />
+      <div className='flex flex-1 flex-col w-full h-full'>
+        <ChatHeader onBack={onBack} />
         <div className='flex-1 overflow-auto p-4'>
           <MessageSkeleton />
         </div>
@@ -68,13 +70,18 @@ const ChatContainer = ({ onBack }) => { // Add onBack prop for handling back nav
     );
 
   return (
-    <div className='flex flex-1 flex-col w-full h-full max-h-[calc(100vh-64px)] sm:pt-0'>
-   
+    <div className='flex flex-1 flex-col w-full h-full sm:pt-0 bg-white relative'>
       <ChatHeader onBack={onBack} />
-
       <div
         ref={chatContainerRef}
-        className='flex-1 overflow-y-auto px-3 py-4 sm:p-4 space-y-4 min-h-0 overscroll-contain'
+        className='flex-1 overflow-y-auto px-1 py-2 sm:p-4 space-y-4 min-h-0 overscroll-contain'
+        style={{
+          height: 'calc(100dvh - 112px - 72px)',
+          minHeight: '0',
+          paddingBottom: '112px',
+          WebkitOverflowScrolling: 'touch',
+          scrollPaddingBottom: '96px',
+        }}
       >
         {messages.map((message, index) => {
           const showTimestamp =
@@ -84,21 +91,28 @@ const ChatContainer = ({ onBack }) => { // Add onBack prop for handling back nav
 
           return (
             <div key={message._id} className='space-y-1'>
-              {/* Show timestamp only if necessary */}
               {showTimestamp && (
                 <time className='block text-center text-sm text-gray-500 mb-4'>
-                  {formatMessage(message.createdAt)}
+                  {formatMessage(message?.createdAt)}
                 </time>
               )}
               <ChatBubble message={message} />
             </div>
           );
         })}
-        {/* auto scroll to bottom */}
         <div ref={chatEndRef} />
       </div>
-
-      <MessageInput />
+      <div
+        className='sticky bottom-0 left-0 w-full px-1 py-3 sm:px-4 z-20 border-t border-gray-200 bg-white'
+        style={{
+          WebkitTransform: 'translateZ(0)',
+          touchAction: 'manipulation',
+          paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+          boxShadow: '0 -2px 8px rgba(0,0,0,0.03)',
+        }}
+      >
+        <MessageInput />
+      </div>
     </div>
   );
 };

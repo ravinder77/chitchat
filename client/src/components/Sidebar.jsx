@@ -23,12 +23,14 @@ const Sidebar = () => {
     : users;
 
   return (
-    <aside className='h-full w-full md:w-20 lg:w-72 border-r border-[] flex flex-col sm:pt-0'>
-      <div className='sticky top-0 border-b border-[#] w-full p-4'>
+    <aside className='h-full min-h-screen w-full md:w-20 lg:w-72 border-r border-[#003049] flex flex-col sm:pt-0 bg-[#eae2b7]'>
+      <div className='sticky top-0 border-b border-[#003049] w-full p-4 bg-[#eae2b7] md:bg-white z-10'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-2'>
             <Users className='size-6 text-gray-600' />
-            <span className='font-medium block md:hidden lg:block'>Contacts</span>
+            <span className='font-medium block md:hidden lg:block'>
+              Contacts
+            </span>
           </div>
           <div className='flex md:hidden lg:flex items-center gap-2 text-sm'>
             ({onlineUsers.length - 1} online)
@@ -48,14 +50,16 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className='overflow-y-auto flex-1 py-2'>
+      <div className='overflow-y-auto flex-1 py-2 min-h-0'>
         {filteredUsers.map((user) => (
           <button
             key={user._id}
             aria-label={`Select ${user.fullName}`}
             onClick={() => setSelectedUser(user)}
-            className={`w-full p-4 flex items-center gap-4 hover:bg-[#eae2b7] hover:text-[#003049] transition-colors ${
-              selectedUser?._id === user._id ? 'bg-[#eae2b7] text-[#003049]' : ''
+            className={` group w-full p-4 flex items-center gap-4 hover:bg-[#003049] hover:text-[#eae2b7] transition-colors ${
+              selectedUser?._id === user._id
+                ? 'bg-[#003049] text-[#eae2b7]'
+                : ''
             }`}
           >
             <div className='relative flex-shrink-0'>
@@ -71,7 +75,13 @@ const Sidebar = () => {
 
             <div className='block md:hidden lg:block text-left flex-1 min-w-0'>
               <div className='font-medium truncate'>{user.fullName}</div>
-              <div className='text-sm text-zinc-500'>
+              <div
+                className={`text-sm group-hover:text-zinc-300 ${
+                  selectedUser?._id === user._id
+                    ? 'text-zinc-300'
+                    : 'text-zinc-500'
+                }`}
+              >
                 {onlineUsers.includes(user._id) ? 'Online' : 'Offline'}
               </div>
             </div>

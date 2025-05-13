@@ -4,8 +4,17 @@
 
 body, html {
   font-family: 'Poppins', sans-serif;
-  color: #eae2b7;
-  background-color: #3e5c76;
-
-
+  background-image: url('/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: #28282b;
+  position: relative; /* Ensure stacking context for pseudo-element */
 }
+
+/* Add this for pure CSS background blur */

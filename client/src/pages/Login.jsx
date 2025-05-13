@@ -27,10 +27,10 @@ const Login = () => {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center w-full'>
-      <div className='max-w-md mx-auto shadow-sm px-4 py-10 bg-[#ede0d4]'>
+    <div className='flex items-center justify-cente min-h-[calc(100vh-64px)] backdrop-blur-sm '>
+      <div className='max-w-md mx-auto shadow-lg px-4 py-10 bg-white'>
         <div className=' mb-8'>
-          <h1 className='text-3xl font-medium mb-2'>Welcome back</h1>
+          <h1 className='text-3xl font-semibold mb-2 '>Welcome back</h1>
           <p className='text-gray-500'>
             Fill in your credentials to access your account.
           </p>
@@ -52,7 +52,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder='Enter Your Email'
               required
-              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#d62828]'
+              className='w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-[#d62828]'
             />
           </div>
 
@@ -81,17 +81,17 @@ const Login = () => {
               </p>
             </Link>
           </div>
-          <div className='text-center'>
+          <div className=''>
             <button
               disabled={isLoggingIn}
               type='submit'
-              className='bg-[#d62828]  text-white font-medium py-2 px-8 focus:outline-none cursor-pointer'
+              className='bg-[#d62828] w-full text-white font-medium py-2 px-8 focus:outline-none cursor-pointer'
             >
               Log In
             </button>
           </div>
         </form>
-        <div className='text-center'>
+        <div className='text-center mt-8'>
           <p className='mt-4 text-sm text-gray-500'>
             Don&apos;t have an account?{' '}
             <Link to='/signup' className='text-[#0466c8] hover:underline'>

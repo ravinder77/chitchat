@@ -27,8 +27,8 @@ const MessageSkeleton = () => {
               height: index % 3 === 0 ? '70px' : '50px',
             }}
           >
-            <div className="w-full h-4 bg-gray-500 rounded-md animate-pulse"></div>
-            <div className="w-3/4 h-4 bg-gray-500 rounded-md animate-pulse"></div>
+            <div className="w-full h-4 bg-gray-400 rounded-md animate-pulse"></div>
+            <div className="w-3/4 h-4 bg-gray-400 rounded-md animate-pulse"></div>
           </div>
 
           {/* Avatar for sent messages */}
